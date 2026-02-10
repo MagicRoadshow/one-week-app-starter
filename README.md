@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# One-Week App Starter
 
-## Getting Started
+A reusable starter template for shipping small public web apps fast.
 
-First, run the development server:
+This repo is intentionally simple:
+- Next.js (App Router) + Tailwind
+- A clean API pattern
+- KV-backed daily snapshots (with local memory fallback)
+- History endpoint for charts
+- CSV + JSON exports
+- A “create today’s snapshot” button for local testing
+- Cron-ready structure for Vercel
+
+This is not a “framework”. It’s an execution engine.
+
+---
+
+## What’s in here
+
+### Homepage
+- A simple starter dashboard
+- “Quick actions” panel:
+  - Create today’s snapshot (POST)
+  - Links to health/history/export endpoints
+
+### API routes
+- `GET /api/health` — sanity check
+- `GET /api/history` — returns recent snapshots
+- `POST /api/snapshot` — creates (at most) one snapshot per day
+- `GET /api/export/json` — downloads snapshots as JSON
+- `GET /api/export/csv` — downloads snapshots as CSV
+
+### Reusable core
+- `app/lib/snapshots.ts`
+  - KV detection
+  - Local in-memory fallback (so local dev doesn’t break)
+  - One-per-day snapshot rule
+  - Retention cap (currently 365)
+
+---
+
+## Run locally
+
+From the repo root:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
